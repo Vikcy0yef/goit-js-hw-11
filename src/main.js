@@ -1,11 +1,12 @@
 import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 import { getImg } from './js/pixabay-api';
-import { ShowGLR } from './js/render-function';
+import { showGLR } from './js/render-function';
 
 export const form = document.querySelector('.form');
 const input = document.querySelector('.input-search');
 const waitMsg = document.querySelector('.wait-msg');
+const gallery = document.querySelector('.gallery');
 
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -25,6 +26,7 @@ form.addEventListener('submit', e => {
     });
     return;
   }
+
   waitMsg.innerHTML =
     '"Wait, the image is loaded" <span class="loader"></span>';
   getImg(searchName)
@@ -41,15 +43,16 @@ form.addEventListener('submit', e => {
           message:
             'Sorry, there are no images matching your search query. Please try again!',
         });
+        gallery.innerHTML = '';
       } else {
-        ShowGLR(response.data.hits, '.gallery');
+        showGLR(response.data.hits, '.gallery');
       }
       waitMsg.textContent = '';
     })
-
     .catch(error => {
       waitMsg.textContent = 'Ups ...';
       console.log(error);
+      gallery.innerHTML = '';
     });
 
   form.reset();
