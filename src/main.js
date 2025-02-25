@@ -26,7 +26,7 @@ form.addEventListener('submit', e => {
     });
     return;
   }
-
+  gallery.innerHTML = '';
   waitMsg.innerHTML =
     '"Wait, the image is loaded" <span class="loader"></span>';
   getImg(searchName)
@@ -43,7 +43,7 @@ form.addEventListener('submit', e => {
           message:
             'Sorry, there are no images matching your search query. Please try again!',
         });
-        gallery.innerHTML = '';
+        // gallery.innerHTML = '';
       } else {
         showGLR(response.data.hits, '.gallery');
       }
